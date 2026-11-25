@@ -7,6 +7,7 @@
   <meta name="description" content="CellGuard is a lightweight native macOS menu bar battery monitor and charge limiter for Apple Silicon MacBooks." />
   <style>
     :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       min-height: 100vh;
@@ -18,15 +19,14 @@
       padding: 24px;
     }
     main {
-      max-width: 520px;
+      max-width: 540px;
+      width: 100%;
       padding: 28px;
       border-radius: 18px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(255, 255, 255, 0.11);
       backdrop-filter: blur(18px);
     }
-    h1 { margin: 0 0 10px; font-size: 24px; letter-spacing: -0.4px; }
-    p { margin: 0 0 12px; line-height: 1.55; color: rgba(255, 255, 255, 0.78); font-size: 14.5px; }
     .badge {
       display: inline-block;
       padding: 4px 10px;
@@ -37,14 +37,60 @@
       font-weight: 600;
       margin-bottom: 12px;
     }
+    h1 { margin: 0 0 10px; font-size: 26px; letter-spacing: -0.4px; }
+    p { margin: 0 0 14px; line-height: 1.55; color: rgba(255, 255, 255, 0.78); font-size: 14.5px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: 11px;
+      background: linear-gradient(135deg, #30d158, #1fa344);
+      color: #06140b;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      margin: 6px 0 18px;
+    }
+    .btn:hover { filter: brightness(1.06); }
+    .steps {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .steps h2 { margin: 0 0 8px; font-size: 13px; color: #fff; }
+    .steps ol { margin: 0; padding-left: 18px; line-height: 1.65; }
+    code {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.09);
+      color: #64d2ff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+    }
+    .meta { margin-top: 12px; font-size: 12px; color: rgba(255, 255, 255, 0.48); }
   </style>
 </head>
 <body>
   <main>
-    <span class="badge">macOS Menu Bar Utility</span>
+    <span class="badge">macOS · Apple Silicon (M1–M4)</span>
     <h1>CellGuard</h1>
-    <p>CellGuard protects your MacBook battery health with configurable lower/upper charge limits, native AC pass-through holding, low-battery alerts, and automatic macOS Battery Saving Mode.</p>
-    <p>Free for personal macOS use.</p>
+    <p>Protect your MacBook battery health with custom lower/upper charge limits, native AC pass-through holding, low-battery alerts, automatic Battery Saving Mode, and built-in one-click updates.</p>
+    <a class="btn" href="https://github.com/shakilhossain38/cellguard-web/releases/latest/download/CellGuard-1.0.0-AppleSilicon.dmg">Download CellGuard v1.0.0 (.dmg)</a>
+    <div class="steps">
+      <h2>First-Time Install (30 seconds)</h2>
+      <ol>
+        <li>Open the downloaded <strong>.dmg</strong> and drag <strong>CellGuard</strong> into <strong>Applications</strong>.</li>
+        <li>Clear macOS download quarantine once in Terminal:<br /><code>xattr -cr /Applications/CellGuard.app</code></li>
+        <li>Launch <strong>CellGuard</strong>, click the shield icon in the menu bar, and click <strong>Install</strong> once to enable hardware charge limits.</li>
+      </ol>
+    </div>
+    <p class="meta">Free personal macOS utility · Future updates install automatically inside CellGuard.</p>
   </main>
 </body>
 </html>
