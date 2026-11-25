@@ -21,31 +21,60 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0;
+      padding: 4px 0 2px;
     }
-    .ad-frame {
+    .frame-wrap {
       width: 320px;
       height: 50px;
-      border: 0;
       border-radius: 8px;
       overflow: hidden;
-      background: transparent;
+      background: rgba(255, 255, 255, 0.04);
     }
     .label {
-      margin-top: 2px;
-      font-size: 9px;
-      letter-spacing: 0.2px;
-      color: rgba(255, 255, 255, 0.42);
+      margin-top: 3px;
+      font-size: 9.5px;
+      letter-spacing: 0.15px;
+      color: rgba(255, 255, 255, 0.44);
       user-select: none;
     }
   </style>
 </head>
 <body>
   <div class="slot" id="ad-slot">
-    <!-- AD_UNIT_START -->
-    <!-- A-Ads 320x50 unit will be inserted here -->
-    <!-- AD_UNIT_END -->
-    <div class="label">Sponsored</div>
+    <div class="frame-wrap">
+      <!-- BEGIN AADS AD UNIT 2463215 -->
+
+      <div id="frame" style="width: 320px;margin: auto;z-index: 99998;height: auto">
+          <iframe data-aa='2463215' src='//ad.a-ads.com/2463215/?size=320x50'
+                            style='border:0; padding:0; width:320px; height:50px; overflow:hidden;display: block;margin: auto'></iframe>
+        </div>
+
+      <!-- END AADS AD UNIT 2463215 -->
+    </div>
+    <div class="label">Sponsored · Keeps CellGuard free</div>
   </div>
+  <script>
+    (function () {
+      var notified = false;
+      function notifyReady(ready) {
+        if (notified) return;
+        notified = true;
+        try {
+          if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.cellguardAd) {
+            window.webkit.messageHandlers.cellguardAd.postMessage({ ready: ready });
+          }
+        } catch (_) {}
+      }
+      var iframe = document.querySelector('iframe[data-aa="2463215"]');
+      if (iframe) {
+        iframe.addEventListener('load', function () { notifyReady(true); });
+        iframe.addEventListener('error', function () { notifyReady(false); });
+      }
+      // Fallback if iframe already finished before listener attached
+      window.addEventListener('load', function () {
+        setTimeout(function () { notifyReady(Boolean(iframe)); }, 400);
+      });
+    })();
+  </script>
 </body>
 </html>
