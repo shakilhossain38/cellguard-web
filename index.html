@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CellGuard for macOS — Battery Charge Guard</title>
-  <meta name="description" content="CellGuard is a lightweight native macOS menu bar battery monitor and charge limiter for Apple Silicon MacBooks." />
+  <meta name="description" content="CellGuard is a lightweight native macOS menu bar battery monitor and charge limiter for Apple Silicon and Intel MacBooks." />
   <style>
     :root { color-scheme: dark; }
     * { box-sizing: border-box; }
@@ -39,18 +39,29 @@
     }
     h1 { margin: 0 0 10px; font-size: 26px; letter-spacing: -0.4px; }
     p { margin: 0 0 14px; line-height: 1.55; color: rgba(255, 255, 255, 0.78); font-size: 14.5px; }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 6px 0 18px;
+    }
     .btn {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 11px 18px;
+      padding: 11px 16px;
       border-radius: 11px;
       background: linear-gradient(135deg, #30d158, #1fa344);
       color: #06140b;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13.5px;
       text-decoration: none;
-      margin: 6px 0 18px;
+    }
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #f2f5f8;
+      font-weight: 600;
     }
     .btn:hover { filter: brightness(1.06); }
     .steps {
@@ -78,10 +89,13 @@
 </head>
 <body>
   <main>
-    <span class="badge">macOS · Apple Silicon (M1–M4)</span>
+    <span class="badge">macOS · Apple Silicon (M1–M4) &amp; Intel</span>
     <h1>CellGuard</h1>
-    <p>Protect your MacBook battery health with custom lower/upper charge limits, native AC pass-through holding, low-battery alerts, automatic Battery Saving Mode, and built-in one-click updates.</p>
-    <a class="btn" href="https://github.com/shakilhossain38/cellguard-web/releases/latest/download/CellGuard-1.0.1-AppleSilicon.dmg">Download CellGuard v1.0.1 (.dmg)</a>
+    <p>Protect your MacBook battery health with custom lower/upper charge limits, native AC pass-through holding, Heat Protection, Charge Schedules, Live Power Insights, Desk/Travel Auto-Profiles, and automatic background updates.</p>
+    <div class="btn-row">
+      <a class="btn" data-download="arm64" href="https://github.com/shakilhossain38/cellguard-web/releases/download/v1.0.3/CellGuard-1.0.3-AppleSilicon.dmg">Download for Apple Silicon (.dmg)</a>
+      <a class="btn secondary" data-download="intel" href="https://github.com/shakilhossain38/cellguard-web/releases/download/v1.0.3/CellGuard-1.0.3-Intel.dmg">Intel Mac (.dmg)</a>
+    </div>
     <div class="steps">
       <h2>First-Time Install (30 seconds)</h2>
       <ol>
@@ -92,5 +106,60 @@
     </div>
     <p class="meta">Free personal macOS utility · Future updates install automatically inside CellGuard.</p>
   </main>
+  <script>
+    (function () {
+      var DOC_ROOT = 'projects/generic-web-hosting-sh/databases/(default)/documents';
+      var COMMIT_URL = 'https://firestore.googleapis.com/v1/' + DOC_ROOT + ':commit';
+
+      function utcDay() {
+        var d = new Date();
+        return d.toISOString().slice(0, 10);
+      }
+
+      function trackDailyField(field) {
+        try {
+          var day = utcDay();
+          var body = JSON.stringify({
+            writes: [{
+              update: {
+                name: DOC_ROOT + '/cellguard_daily/' + day,
+                fields: {
+                  date: { stringValue: day },
+                  updatedAt: { timestampValue: new Date().toISOString() }
+                }
+              },
+              updateMask: { fieldPaths: ['date', 'updatedAt'] },
+              updateTransforms: [
+                { fieldPath: field, increment: { integerValue: '1' } }
+              ]
+            }]
+          });
+          fetch(COMMIT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: body,
+            keepalive: true
+          }).catch(function () {});
+        } catch (_) {}
+      }
+
+      var visitKey = 'cg_web_visit_' + utcDay();
+      try {
+        if (!sessionStorage.getItem(visitKey)) {
+          sessionStorage.setItem(visitKey, '1');
+          trackDailyField('webVisits');
+        }
+      } catch (_) {
+        trackDailyField('webVisits');
+      }
+
+      var links = document.querySelectorAll('a[data-download]');
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function () {
+          trackDailyField('webDownloads');
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
