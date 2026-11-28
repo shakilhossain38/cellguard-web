@@ -121,11 +121,12 @@
       </video>
     </div>
     <div class="steps">
-      <h2>First-Time Install (30 seconds)</h2>
+      <h2>How to Install (First Time · ~30 seconds)</h2>
       <ol>
         <li>Open the downloaded <strong>.dmg</strong> and drag <strong>CellGuard</strong> into <strong>Applications</strong>.</li>
-        <li>Clear macOS download quarantine once in Terminal:<br /><code>xattr -cr /Applications/CellGuard.app</code></li>
-        <li>Launch <strong>CellGuard</strong>, click the shield icon in the menu bar, and click <strong>Install</strong> once to enable hardware charge limits.</li>
+        <li>Try opening <strong>CellGuard</strong> once — macOS will block it because it isn't Apple-notarized yet. Click <strong>Done</strong>.</li>
+        <li>Open <strong>System Settings → Privacy &amp; Security</strong>, scroll down to the <strong>Security</strong> section, and click <strong>Open Anyway</strong> next to CellGuard (then confirm with Touch ID / password).<br /><span style="font-size:12px;color:rgba(255,255,255,0.58);">If macOS says the app is "damaged" instead of showing Open Anyway, run this once in Terminal:</span><br /><code>xattr -cr /Applications/CellGuard.app</code></li>
+        <li>Click the <strong>CellGuard</strong> shield icon in your menu bar and click <strong>Install</strong> once to enable hardware charge limits.</li>
       </ol>
     </div>
     <p class="meta">Free personal macOS utility · Future updates install automatically inside CellGuard.</p>
