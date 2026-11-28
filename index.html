@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CellGuard for macOS — Battery Charge Guard</title>
   <meta name="description" content="CellGuard is a lightweight native macOS menu bar battery monitor and charge limiter for Apple Silicon and Intel MacBooks." />
+  <meta property="og:title" content="CellGuard for macOS — Free MacBook Battery Charge Limiter" />
+  <meta property="og:description" content="Protect your MacBook battery health with custom charge limits, native AC pass-through, Heat Protection, Charge Schedules, and Live Power Insights." />
+  <meta property="og:image" content="https://shakilhossain38.github.io/cellguard-web/assets/cellguard-poster.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://shakilhossain38.github.io/cellguard-web/assets/cellguard-poster.png" />
   <style>
     :root { color-scheme: dark; }
     * { box-sizing: border-box; }
@@ -19,13 +25,26 @@
       padding: 24px;
     }
     main {
-      max-width: 540px;
+      max-width: 720px;
       width: 100%;
       padding: 28px;
       border-radius: 18px;
       background: rgba(255, 255, 255, 0.055);
       border: 1px solid rgba(255, 255, 255, 0.11);
       backdrop-filter: blur(18px);
+    }
+    .demo-wrap {
+      margin: 18px 0;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: #0c1116;
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.42);
+    }
+    .demo-wrap video {
+      display: block;
+      width: 100%;
+      height: auto;
     }
     .badge {
       display: inline-block;
@@ -95,6 +114,11 @@
     <div class="btn-row">
       <a class="btn" data-download="arm64" href="https://github.com/shakilhossain38/cellguard-web/releases/download/v1.0.9/CellGuard-1.0.9-AppleSilicon.dmg">Download for Apple Silicon (.dmg)</a>
       <a class="btn secondary" data-download="intel" href="https://github.com/shakilhossain38/cellguard-web/releases/download/v1.0.9/CellGuard-1.0.9-Intel.dmg">Intel Mac (.dmg)</a>
+    </div>
+    <div class="demo-wrap">
+      <video autoplay loop muted playsinline controls poster="assets/cellguard-poster.png">
+        <source src="assets/cellguard-demo.mp4" type="video/mp4" />
+      </video>
     </div>
     <div class="steps">
       <h2>First-Time Install (30 seconds)</h2>
